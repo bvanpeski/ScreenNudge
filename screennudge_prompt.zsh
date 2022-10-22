@@ -16,17 +16,8 @@
 ###########################################################################################
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
-# Latest version:
-#	Date		    Version		Description
-#------------------------------------------------------------------------------------------
-# 05/14/2021  0.1   -   Initial start.
-# 02/15/2022  1.0   -   First go.
-# 02/16/2022  1.2   -   Added check to see if Liftoff is running first. Consolidated TCCcheck.
-#                       Added separate check to see if ScreenCapture as already approved.
-# 02/18/2022  1.3   -   Final v1 tweaks.
-# 02/22/2022  1.4   -   Adding unified logging.
-# 05/12/2022  1.5   -   Added dialog function
-# 10/12/2022  1.6   -   Added bundleid/app path checks and a temporary fix for a Ventura issue.
+# Current version: 1.6. | See CHANGELOG for full version history.
+# Updated: 10/12/2022
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.
