@@ -17,7 +17,7 @@ I’ve included two options for messaging the end-user leveraging the Kandji CLI
 
 
 <!-- wp:paragraph -->
-<p>All you as the admin need to do is to complete the <span style="text-decoration: underline;">User Input</span> section of the script. Here is where you'll define the path to the application, choose the messaging you want to present the dialog, and add an icon.</p>
+<p>All you as the admin need to do is to complete the <span style="text-decoration: underline;">User Input</span> section of the script. Here is where you'll define the path to the application, choose the messaging you want to present in the dialog, and add an optional icon.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
