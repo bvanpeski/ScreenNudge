@@ -3,10 +3,10 @@
 
 # REQUIREMENTS:
 # This script runs on macOS 10.15 or higher. macOS 11 or higher is required for standard user approval (the MDM command was made available in Big Sur.)
-
+#
 # The script works best when the app being targeted is being deployed with a Privacy Profile library item that lets standard users approve
 # Screen Capture. (Available in macOS Big Sur 11+)
-
+#
 # The MDM executing this script requires Full Disk Access in order to read the tcc.db and check to see if screen recording has been approved.
 # (Most MDMs should already have this, since they would need access to do MDM-things)
 
