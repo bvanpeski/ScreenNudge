@@ -12,7 +12,9 @@ While this script was designed with Kandji in mind, it is designed to be plug-an
 I’ve included two options for messaging the end-user leveraging the Kandji CLI or standard osascript, but feel free to add your messaging binary of choice if you prefer using <a href="https://github.com/julienXX/terminal-notifier" title="">Terminal Notifier</a>, <a href="https://github.com/bartreardon/swiftDialog" title="">SwiftDialog</a>, or other solutions.
 
 **Pro Tip:** osascript dialogs look pretty boring and dated these days in macOS, but adding a path to an app icon goes a long ways towards making it look less terrible.
-# image of comparison
+
+![dialog_boxes](https://user-images.githubusercontent.com/4316081/197363964-e7b69c9c-7986-44e8-99d3-0155f60379f9.jpg)
+
 
 <!-- wp:paragraph -->
 <p>All you as the admin need to do is to complete the <span style="text-decoration: underline;">User Input</span> section of the script. Here is where you'll define the path to the application, choose the messaging you want to present the dialog, and add an icon.</p>
