@@ -98,7 +98,7 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" ]]; then
       #Activating System Settings (Ventura Workaround)
       osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
       UserDialog
-      #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehous scenarios
+      #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehouse scenarios
       sleep 10
       LOGGING "--- Checking for approval of ScreenCapture for $appName..."
       Check_TCC
