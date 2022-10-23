@@ -1,6 +1,9 @@
 # ScreenNudge
 A tool for prompting users to approve Screen Recording on macOS
 
+<img width="600" alt="screennudge_example" src="https://user-images.githubusercontent.com/4316081/197368115-b2309720-8d47-444e-9044-051000ae3868.png">
+
+
 ## Requirements
 * This script runs on macOS 10.15 or higher. macOS 11 or higher is required for standard user approval (that MDM command was made available in Big Sur.)
 * The script works best when the app being targeted is being deployed with a Privacy Profile library item that lets standard users approve Screen Capture. (Available in macOS Big Sur 11+). Use your MDM's built-in Privacy profile controls or if that's not an option, use a tool like [iMazing Profile Editor](https://imazing.com/profile-editor).
