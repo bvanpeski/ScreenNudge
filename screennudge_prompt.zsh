@@ -16,8 +16,8 @@
 ###########################################################################################
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
-# Current version: 1.6. | See CHANGELOG for full version history.
-# Updated: 10/12/2022
+# Current version: 1.6.1 | See CHANGELOG for full version history.
+# Updated: 01/03/2023
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.
@@ -74,7 +74,7 @@ UserDialog (){
 #  THE NEEDFUL
 ################################################################
 #Check for a valid bundleid
-if ! [[ $bundleid =~ ^[a-z0-9-]+(.[a-z0-9-]+)* ]]; then
+if ! [[ $bundleid =~ ^[a-zA-Z0-9]+[-.](.*) ]]; then
   LOGGING "--- Could not find valid bundleid for $appName at $appPath!"
   exit 1
 fi
