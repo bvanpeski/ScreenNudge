@@ -16,8 +16,8 @@
 ###########################################################################################
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
-# Current version: 1.6.1 | See CHANGELOG for full version history.
-# Updated: 01/03/2023
+# Current version: 1.6. | See CHANGELOG for full version history.
+# Updated: 10/12/2022
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.
@@ -34,6 +34,9 @@ appName="Zoom" #Name of app to present in dialog to user
 appIcon="/Applications/zoom.us.app/Contents/Resources/ZPLogo.icns" #Path to app icon for messaging
 dialogTitle="Screen Recording Approval"
 dialogMessage="Please approve screen recording for $appName."
+
+attempts=6 #How many attempts at prompting the user before giving up.
+wait_time=40 #How many seconds to wait between user prompts.
 
 ##############################################################
 # VARIABLES & FUNCTIONS
@@ -74,7 +77,7 @@ UserDialog (){
 #  THE NEEDFUL
 ################################################################
 #Check for a valid bundleid
-if ! [[ $bundleid =~ ^[a-zA-Z0-9]+[-.](.*) ]]; then
+if ! [[ $bundleid =~ ^[a-z0-9-]+(.[a-z0-9-]+)* ]]; then
   LOGGING "--- Could not find valid bundleid for $appName at $appPath!"
   exit 1
 fi
@@ -91,15 +94,21 @@ elif [[ $scApproval == "$bundleid" ]]; then
 elif [[ -d "$appPath" && $scApproval != "$bundleid" ]]; then
   LOGGING "--- $appName is installed with bundleid: "$bundleid""
   #Prompt user for Screen Recording Approval and loop until approved.
+  dialogAttempts=0
   until [[ $scApproval = $bundleid ]]
     do
+      if (( $dialogAttempts >= $attempts )); then
+          LOGGING "Prompts have been ignored after $attempts attempts. Giving up..."
+          exit 1
+      fi
       LOGGING "--- Requesting user to manually approve ScreenCapture for $appName..."
       open "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"
       #Activating System Settings (Ventura Workaround)
       osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
       UserDialog
-      #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehouse scenarios
+      #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehous scenarios
       sleep 10
+      ((dialogAttempts++))
       LOGGING "--- Checking for approval of ScreenCapture for $appName..."
       Check_TCC
     done
