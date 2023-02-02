@@ -16,8 +16,8 @@
 ###########################################################################################
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
-# Current version: 1.6. | See CHANGELOG for full version history.
-# Updated: 10/12/2022
+# Current version: 1.7 | See CHANGELOG for full version history.
+# Updated: 02/02/2023
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.
@@ -36,7 +36,7 @@ dialogTitle="Screen Recording Approval"
 dialogMessage="Please approve screen recording for $appName."
 
 attempts=6 #How many attempts at prompting the user before giving up.
-wait_time=40 #How many seconds to wait between user prompts.
+wait_time=10 #How many seconds to wait between user prompts.
 
 ##############################################################
 # VARIABLES & FUNCTIONS
@@ -107,7 +107,7 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" ]]; then
       osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
       UserDialog
       #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehous scenarios
-      sleep 10
+      sleep $wait_time
       ((dialogAttempts++))
       LOGGING "--- Checking for approval of ScreenCapture for $appName..."
       Check_TCC
