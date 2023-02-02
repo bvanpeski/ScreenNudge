@@ -77,7 +77,7 @@ UserDialog (){
 #  THE NEEDFUL
 ################################################################
 #Check for a valid bundleid
-if ! [[ $bundleid =~ ^[a-z0-9-]+(.[a-z0-9-]+)* ]]; then
+if ! [[ $bundleid =~ ^[a-zA-Z0-9]+[-.](.*) ]]; then
   LOGGING "--- Could not find valid bundleid for $appName at $appPath!"
   exit 1
 fi
