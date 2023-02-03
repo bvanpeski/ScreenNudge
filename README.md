@@ -12,7 +12,7 @@ A tool for prompting users to approve Screen Recording on macOS
 ## Notes
 While this script was designed with Kandji in mind, it is designed to be plug-and-play for just about any MDM.
 
-I’ve included two options for messaging the end-user leveraging the Kandji CLI or standard osascript, but feel free to add your messaging binary of choice if you prefer using <a href="https://github.com/julienXX/terminal-notifier" title="">Terminal Notifier</a>, <a href="https://github.com/bartreardon/swiftDialog" title="">SwiftDialog</a>, or other solutions.
+I’ve included three options for messaging the end-user leveraging the Kandji CLI, <a href="https://github.com/bartreardon/swiftDialog" title="">SwiftDialog</a>, or standard osascript, but feel free to add your messaging binary of choice.
 
 **Pro Tip:** osascript dialogs look pretty boring and dated these days in macOS, but adding a path to an app icon goes a long ways towards making it look less terrible.
 
