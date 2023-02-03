@@ -34,6 +34,12 @@ appName="Zoom" #Name of app to present in dialog to user
 appIcon="/Applications/zoom.us.app/Contents/Resources/ZPLogo.icns" #Path to app icon for messaging
 dialogTitle="Screen Recording Approval"
 dialogMessage="Please approve screen recording for $appName."
+# SwiftDialog Options
+swiftDialogOptions=(
+  --mini
+  --ontop
+  --moveable
+)
 
 attempts=6 #How many attempts at prompting the user before giving up.
 wait_time=10 #How many seconds to wait between user prompts.
@@ -61,15 +67,26 @@ Check_TCC (){
 }
 
 UserDialog (){
-  #Check if $appIcon file exists on system, if not use standard dialog. If Kandji agent is not installed, default to applescript dialog.
-  if [[ -f $appIcon && ! -d $KandjiAgent ]]; then
-    osascript -e 'display dialog "'$dialogMessage'" with title "'$dialogTitle'" with icon POSIX file "'$appIcon'" buttons {"Okay"} default button 1'
-  elif [[ -f $appIcon && -d $KandjiAgent ]]; then
-    /usr/local/bin/kandji display-alert --title ''$dialogTitle'' --message ''$dialogMessage'' --icon $appIcon
-  elif [[ ! -f $appIcon && -d $KandjiAgent ]]; then
-    usr/local/bin/kandji display-alert --title ''$dialogTitle'' --message ''$dialogMessage''
+  #First check if the app icon exists
+  if [ -e "$appIcon" ]; then
+    iconCMD=(--icon "$appIcon")
   else
-    osascript -e 'display dialog "'$dialogMessage'" with title "'$dialogTitle'" buttons {"Okay"} default button 1'
+    #If the icon file doesn't exist, set an empty array to omit from dialogs.
+    iconCMD=()
+  fi
+
+  #If KandjiAgent is installed, use Kandji
+  if [[ -d "$KandjiAgent" ]]; then
+    /usr/local/bin/kandji display-alert --title "$dialogTitle" --message "$dialogMessage" ${iconCMD[@]}
+  #No Kandji, and SwiftDialog is installed, use SwiftDialog
+  elif [[ -e "$dialogPath" && -e "$dialogApp" ]]; then
+    "$dialogPath" --title "$dialogTitle" --message "$dialogMessage" ${swiftDialogOptions[@]} ${iconCMD[@]}
+  #No Kandji and no SwiftDialog, default to osascript w/ icon.
+  elif [ -e "$appIcon" ]; then
+    /usr/bin/osascript -e 'display dialog "'$dialogMessage'" with title "'$dialogTitle'" with icon POSIX file "'$appIcon'" buttons {"Okay"} default button 1 giving up after 15'
+  #No Kandji, no SwiftDialog, and no appicon. Use osascript.
+  else
+    /usr/bin/osascript -e 'display dialog "'$dialogMessage'" with title "'$dialogTitle'" buttons {"Okay"} default button 1 giving up after 15'
   fi
 }
 
