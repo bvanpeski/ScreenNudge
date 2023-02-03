@@ -56,6 +56,9 @@ else
   exit 0
 fi
 KandjiAgent="/Library/Kandji/Kandji Agent.app"
+#Path to SwiftDialog
+dialogPath="/usr/local/bin/dialog"
+dialogApp="/Library/Application Support/Dialog/Dialog.app"
 
 Check_TCC (){
   #Split Screen Recording approval variables for Catalina vs Big Sur+
