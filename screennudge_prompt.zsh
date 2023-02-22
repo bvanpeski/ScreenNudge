@@ -51,6 +51,7 @@ osVer="$(sw_vers -productVersion)"
 if [[ -d "$appPath" ]]; then
   bundleid=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$appPath/Contents/Info.plist")
   #hardcode this value if your app path is unique on each machine
+  pppc_status=$(/usr/libexec/PlistBuddy -c 'print "'$bundleid':kTCCServiceScreenCapture:Authorization"' "/Library/Application Support/com.apple.TCC/MDMOverrides.plist")
 else
   LOGGING "--- Could not find $appName installed at $appPath."
   exit 0
@@ -111,7 +112,7 @@ if pgrep "Liftoff" >/dev/null; then
 elif [[ $scApproval == "$bundleid" ]]; then
   LOGGING "ScreenCapture has already been approved for $appName..."
   exit 0
-elif [[ -d "$appPath" && $scApproval != "$bundleid" ]]; then
+elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowStandardUserToSetSystemService" ]]; then
   LOGGING "--- $appName is installed with bundleid: "$bundleid""
   #Prompt user for Screen Recording Approval and loop until approved.
   dialogAttempts=0
@@ -135,6 +136,9 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" ]]; then
     LOGGING "Screen Recording for $appName has been approved! Exiting..."
     osascript -e 'quit app "System Preferences"'
     exit 0
+elif [[ $pppc_status != "AllowStandardUserToSetSystemService" ]]; then
+  LOGGING "--- Could not find valid PPPC Profile for $appName allowing Standard User to Approve."
+  exit 1
 else
   LOGGING "$appName not found. Exiting..."
   exit 0
