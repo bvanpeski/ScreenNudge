@@ -113,7 +113,7 @@ elif [[ $scApproval == "$bundleid" ]]; then
   LOGGING "ScreenCapture has already been approved for $appName..."
   exit 0
 elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowStandardUserToSetSystemService" ]]; then
-  LOGGING "--- $appName is installed with bundleid: "$bundleid""
+  LOGGING "--- $appName is installed with bundleid: "$bundleid" and AllowStandardUserToSetSystemService is set via PPPC Profile"
   #Prompt user for Screen Recording Approval and loop until approved.
   dialogAttempts=0
   until [[ $scApproval = $bundleid ]]
@@ -127,7 +127,7 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowSta
       #Activating System Settings (Ventura Workaround)
       osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
       UserDialog
-      #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehous scenarios
+      #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehouse scenarios
       sleep $wait_time
       ((dialogAttempts++))
       LOGGING "--- Checking for approval of ScreenCapture for $appName..."
@@ -136,7 +136,7 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowSta
     LOGGING "Screen Recording for $appName has been approved! Exiting..."
     osascript -e 'quit app "System Preferences"'
     exit 0
-elif [[ $pppc_status != "AllowStandardUserToSetSystemService" ]]; then
+elif [[ -d "$appPath" && $pppc_status != "AllowStandardUserToSetSystemService" ]]; then
   LOGGING "--- Could not find valid PPPC Profile for $appName allowing Standard User to Approve."
   exit 1
 else
