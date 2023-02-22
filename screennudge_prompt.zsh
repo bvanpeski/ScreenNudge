@@ -4,8 +4,8 @@
 # REQUIREMENTS:
 # This script runs on macOS 10.15 or higher. macOS 11 or higher is required for standard user approval (the MDM command was made available in Big Sur.)
 #
-# The script works best when the app being targeted is being deployed with a Privacy Profile library item that lets standard users approve
-# Screen Capture. (Available in macOS Big Sur 11+)
+# The script requires that the app being targeted is being deployed with a Privacy Profile library
+# item that lets standard users approve Screen Capture. (Available in macOS Big Sur 11+)
 #
 # The MDM executing this script requires Full Disk Access in order to read the tcc.db and check to see if screen recording has been approved.
 # (Most MDMs should already have this, since they would need access to do MDM-things)
@@ -17,7 +17,7 @@
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
 # Current version: 1.7 | See CHANGELOG for full version history.
-# Updated: 02/02/2023
+# Updated: 02/21/2023
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.
