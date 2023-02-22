@@ -6,7 +6,7 @@ A tool for prompting users to approve Screen Recording on macOS
 
 ## Requirements
 * This script runs on macOS 10.15 or higher. macOS 11 or higher is required for standard user approval (that MDM command was made available in Big Sur.)
-* The script works best when the app being targeted is being deployed with a Privacy Profile library item that lets standard users approve Screen Capture. (Available in macOS Big Sur 11+). Use your MDM's built-in Privacy profile controls or if that's not an option, use a tool like [iMazing Profile Editor](https://imazing.com/profile-editor).
+* The script requires that the app being targeted is being deployed with a Privacy Profile library item that lets standard users approve Screen Capture (`AllowStandardUserToSetSystemService`). (Available in macOS Big Sur 11+). Use your MDM's built-in Privacy profile controls or if that's not an option, use a tool like [iMazing Profile Editor](https://imazing.com/profile-editor).
 * The MDM agent running this script needs Full Disk Access in order to read the tcc.db and confirm screen recording has been approved. Most MDM agents have this access by default (check the MDM Profile installed on the machine in System Preferences > Profiles), but if your specific MDM does not you'll want to grant it access with a PPPC Profile.
 
 ## Notes
