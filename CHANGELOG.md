@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v 1.7 | 2023-02-21
 `ADDED` - Included check for PPPC Profile allowing standard user to approve the app.
+
 `ADDED` - Added user input for how many attempts to make before giving up.
+
 `ADDED` - User input for wait time between prompts
+
 `ADDED` - Support for SwiftDialog
 
 ## v 1.6.1 | 2023-01-03
@@ -29,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v 1.2 | 2022-02-16
 `CHANGED` - Consolidated TCCcheck logic
+
 `ADDED` - Added an additional check to see if ScreenCapture is already approved.
 
 ## v 1.1.1 | 2021-05-14
