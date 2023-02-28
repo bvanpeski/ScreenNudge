@@ -17,7 +17,7 @@
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
 # Current version: 1.7 | See CHANGELOG for full version history.
-# Updated: 02/21/2023
+# Updated: 02/27/2023
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.

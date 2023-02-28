@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v 1.7 | 2023-02-21
+## v 1.7 | 2023-02-27
 `ADDED` - Included check for PPPC Profile allowing standard user to approve the app.
 
 `ADDED` - Added user input for how many attempts to make before giving up.
@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 `ADDED` - User input for wait time between prompts
 
 `ADDED` - Support for SwiftDialog
+
+`CHANGED` - Modified applescript dialog to resolve issue where it would fail to execute in some instances.
 
 ## v 1.6.1 | 2023-01-03
 `CHANGED` - Modified bundleid regex logic to account for non-standard bundle id formats.
