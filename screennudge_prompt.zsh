@@ -87,10 +87,10 @@ UserDialog (){
     "$dialogPath" --title "$dialogTitle" --message "$dialogMessage" ${swiftDialogOptions[@]} ${iconCMD[@]}
   #No Kandji and no SwiftDialog, default to osascript w/ icon.
   elif [ -e "$appIcon" ]; then
-    /usr/bin/osascript -e 'display dialog "'$dialogMessage'" with title "'$dialogTitle'" with icon POSIX file "'$appIcon'" buttons {"Okay"} default button 1 giving up after 15'
+    /usr/bin/osascript -e 'display dialog "'"$dialogMessage"'" with title "'"$dialogTitle"'" with icon POSIX file "'"$appIcon"'" buttons {"Okay"} default button 1 giving up after 15'
   #No Kandji, no SwiftDialog, and no appicon. Use osascript.
   else
-    /usr/bin/osascript -e 'display dialog "'$dialogMessage'" with title "'$dialogTitle'" buttons {"Okay"} default button 1 giving up after 15'
+    /usr/bin/osascript -e 'display dialog "'"$dialogMessage"'" with title "'"$dialogTitle"'" buttons {"Okay"} default button 1 giving up after 15'
   fi
 }
 
