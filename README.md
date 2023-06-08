@@ -55,6 +55,6 @@ dialogMessage="Please approve screen recording for $appName."</pre>
 * I get an error `Error: unable to open database "/Library/Application Support/com.apple.TCC/TCC.db": authorization denied`
   * This means the agent running the script doesn't have Full Disk Access permissions to read the TCC.db. Keep in mind that with some MDMs, if you trigger a script via Terminal (rather than waiting for agent check-in), it will run as Terminal rather than as the agent.  (Please don't deploy a PPPC Profile granting Terminal Full Disk access to solve this, as that is a huge security risk). Wait for the device to check in, and it should run fine.
 * Reading the Logs
-  * You probably have logs from the script in your MDM, but if you need to grab them locally on a machine you can grep them out of the unified log. `log show --style compact --process "logger" | grep "UnActivationLock"`
+  * You probably have logs from the script in your MDM, but if you need to grab them locally on a machine you can grep them out of the unified log. `log show --style compact --process "logger" | grep "ScreenNudge"`
 * Run the script as zsh
   * The most common issue that people run into is running the script as a bash script rather than as zsh. Zsh has been the default shell on macOS since macOS 10.15 Catalina. If your MDM does not support running scripts as zsh, I encourage you to reach out to them and request that they support zsh, which has been the default shell on macOS since October 2019.
