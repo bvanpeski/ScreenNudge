@@ -48,7 +48,7 @@ wait_time=10 #How many seconds to wait between user prompts.
 # VARIABLES & FUNCTIONS
 ##############################################################
 osVer="$(sw_vers -productVersion)"
-currentUser=$(echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ { print $3 }')
+currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
 uid=$(id -u "$currentUser")
 if [[ -d "$appPath" ]]; then
   bundleid=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$appPath/Contents/Info.plist")
