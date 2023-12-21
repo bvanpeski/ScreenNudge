@@ -16,8 +16,8 @@
 ###########################################################################################
 # Created by Brian Van Peski - macOS Adventures
 ###########################################################################################
-# Current version: 1.7 | See CHANGELOG for full version history.
-# Updated: 02/27/2023
+# Current version: 1.8 | See CHANGELOG for full version history.
+# Updated: 12/21/2023
 
 # Set logging - Send logs to stdout as well as Unified Log
 # Use 'log show --process "logger"' in Terminal to view logs activity and grep for ScreenNudge to filter.
@@ -48,6 +48,8 @@ wait_time=10 #How many seconds to wait between user prompts.
 # VARIABLES & FUNCTIONS
 ##############################################################
 osVer="$(sw_vers -productVersion)"
+currentUser=$(echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ { print $3 }')
+uid=$(id -u "$currentUser")
 if [[ -d "$appPath" ]]; then
   bundleid=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$appPath/Contents/Info.plist")
   #hardcode this value if your app path is unique on each machine
@@ -60,6 +62,17 @@ KandjiAgent="/Library/Kandji/Kandji Agent.app"
 #Path to SwiftDialog
 dialogPath="/usr/local/bin/dialog"
 dialogApp="/Library/Application Support/Dialog/Dialog.app"
+
+runAsUser() {
+  # From https://scriptingosx.com/2020/08/running-a-command-as-another-user
+  if [ "$currentUser" != "loginwindow" ]; then
+    launchctl asuser "$uid" sudo -u "$currentUser" "$@"
+  else
+    echo "No user logged in"
+    # Uncomment the exit command to make the function exit with an error when no user is logged in
+    # exit 1
+  fi
+}
 
 Check_TCC (){
   #Split Screen Recording approval variables for Catalina vs Big Sur+
@@ -87,10 +100,10 @@ UserDialog (){
     "$dialogPath" --title "$dialogTitle" --message "$dialogMessage" ${swiftDialogOptions[@]} ${iconCMD[@]}
   #No Kandji and no SwiftDialog, default to osascript w/ icon.
   elif [ -e "$appIcon" ]; then
-    /usr/bin/osascript -e 'display dialog "'"$dialogMessage"'" with title "'"$dialogTitle"'" with icon POSIX file "'"$appIcon"'" buttons {"Okay"} default button 1 giving up after 15'
+    runAsUser /usr/bin/osascript -e 'display dialog "'"$dialogMessage"'" with title "'"$dialogTitle"'" with icon POSIX file "'"$appIcon"'" buttons {"Okay"} default button 1 giving up after 15'
   #No Kandji, no SwiftDialog, and no appicon. Use osascript.
   else
-    /usr/bin/osascript -e 'display dialog "'"$dialogMessage"'" with title "'"$dialogTitle"'" buttons {"Okay"} default button 1 giving up after 15'
+     runAsUser /usr/bin/osascript -e 'display dialog "'"$dialogMessage"'" with title "'"$dialogTitle"'" buttons {"Okay"} default button 1 giving up after 15'
   fi
 }
 
@@ -123,9 +136,9 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowSta
           exit 1
       fi
       LOGGING "--- Requesting user to manually approve ScreenCapture for $appName..."
-      open "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"
+      runAsUser open "x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture"
       #Activating System Settings (Ventura Workaround)
-      osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
+      runAsUser /usr/bin/osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
       UserDialog
       #launchctl asuser 501 say -v Samantha 'Please approve Screen Recording for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehouse scenarios
       sleep $wait_time
@@ -134,7 +147,7 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowSta
       Check_TCC
     done
     LOGGING "Screen Recording for $appName has been approved! Exiting..."
-    osascript -e 'quit app "System Preferences"'
+    runAsUser /usr/bin/osascript -e 'quit app "System Preferences"'
     exit 0
 elif [[ -d "$appPath" && $pppc_status != "AllowStandardUserToSetSystemService" ]]; then
   LOGGING "--- Could not find valid PPPC Profile for $appName allowing Standard User to Approve."
