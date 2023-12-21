@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## v 1.8 | 2023-12-21
-`CHANGED` - Modified all `open` and `osascript` commands to run as the currently logged in user.
+`CHANGED` - Modified all `open` and `osascript` commands to run as the currently logged in user to catch edge cases where the open command failed to open System Settings.
 
 ## v 1.7 | 2023-02-27
 `ADDED` - Included check for PPPC Profile allowing standard user to approve the app.
