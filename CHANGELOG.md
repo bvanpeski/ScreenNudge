@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v 1.4 | 2022-02-22
 `CHANGED` - Unified logging
 
-## v 1.3 | 2018-02-18
+## v 1.3 | 2012-02-18
 `CHANGED` - Final v1 tweaks
 
 ## v 1.2 | 2022-02-16
