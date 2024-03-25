@@ -31,10 +31,10 @@ function LOGGING {
 # USER INPUT 
 ##############################################################
 appPath="/Applications/Wacom Tablet.localized/.Tablet/WacomTabletDriver.app"
-appName="WacomTabletDriver" #Name of app to present in dialog to user
+appName="Wacom Tablet Driver" #Name of app to present in dialog to user
 appIcon="/Applications/Wacom Tablet.localized/.Tablet/WacomTabletDriver.app/Contents/Resources/WacomLogo.icns" #Path to app icon for messaging
-dialogTitle="Wacom Input Approval"
-dialogMessage="Please approve Input Monitoring for FirwareUpdater and WacomTabletDriver."
+dialogTitle="Wacom Input Monitoring Approval"
+dialogMessage="Please approve Input Monitoring for $appName."
 # SwiftDialog Options
 swiftDialogOptions=(
   --mini
@@ -145,7 +145,7 @@ elif [[ -d "$appPath" && $scApproval != "$bundleid" && $pppc_status == "AllowSta
       #Activating System Settings (Ventura Workaround)
       runAsUser /usr/bin/osascript -e 'tell application "System Settings"' -e 'activate' -e 'end tell'
       UserDialog
-      #launchctl asuser 501 say -v Samantha 'Please approve Input Monitoring for '$AppName' in System Preferences.' #optional voice annoyance prompt for depot/warehouse scenarios
+      #launchctl asuser 501 say -v Samantha 'Please approve Input Monitoring for '$appName' in System Preferences.' #optional voice annoyance prompt for depot/warehouse scenarios
       sleep $wait_time
       ((dialogAttempts++))
       LOGGING "--- Checking for approval of Input Monitoring for $appName..."
